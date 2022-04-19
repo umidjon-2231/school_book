@@ -37,7 +37,7 @@ public class User implements UserDetails{
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Book> favorites;
 
     @Override

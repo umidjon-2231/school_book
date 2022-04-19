@@ -6,11 +6,13 @@ import com.project.school_book.dto.BookFrontDto;
 import com.project.school_book.entity.Attachment;
 import com.project.school_book.entity.Book;
 import com.project.school_book.entity.Group;
+import com.project.school_book.entity.User;
 import com.project.school_book.entity.enums.Language;
 import com.project.school_book.mapper.BookMapper;
 import com.project.school_book.mapper.GroupMapper;
 import com.project.school_book.repository.BookRepository;
 import com.project.school_book.repository.GroupRepository;
+import com.project.school_book.repository.UserRepository;
 import com.project.school_book.service.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.repository.query.Param;
@@ -19,6 +21,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.util.unit.DataSize;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,6 +41,7 @@ public class BookController {
     final BookRepository bookRepository;
     final BookMapper bookMapper;
     final GroupRepository groupRepository;
+    final UserRepository userRepository;
 
     @PostMapping
     public HttpEntity<?> add(@Valid @ModelAttribute BookDto dto){
@@ -124,6 +128,29 @@ public class BookController {
         List<Book> books = bookRepository.findAllByNameIsLikeAndGroup_ClassNumberInAndLanguageIn(
                 key, groupIds, languages);
         return ResponseEntity.ok().body(bookMapper.toDto(books));
+    }
+
+
+
+    @PostMapping("/{id}/favorite")
+    public HttpEntity<?> addFavourite(@PathVariable Integer id, @AuthenticationPrincipal User user){
+        Optional<Book> optionalBook = bookRepository.findById(id);
+        if(optionalBook.isEmpty()){
+            return ResponseEntity.badRequest().body("Book not found");
+        }
+        user.getFavorites().add(optionalBook.get());
+        userRepository.save(user);
+        return ResponseEntity.ok().body("Success");
+    }
+    @DeleteMapping("/{id}/favorite")
+    public HttpEntity<?> deleteFavourite(@PathVariable Integer id, @AuthenticationPrincipal User user){
+        Optional<Book> optionalBook = bookRepository.findById(id);
+        if(optionalBook.isEmpty()){
+            return ResponseEntity.badRequest().body("Book not found");
+        }
+        user.getFavorites().removeIf(book -> book.getId().equals(optionalBook.get().getId()));
+        userRepository.save(user);
+        return ResponseEntity.ok().body("Success!");
     }
 
 }

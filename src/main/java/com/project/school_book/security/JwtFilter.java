@@ -23,7 +23,13 @@ public class JwtFilter extends OncePerRequestFilter {
     String[] urls=new String[]{
             "/api/auth/**",
             "/api/book/file/**",
-            "/api/book/picture/**"
+            "/api/book/picture/**",
+            "/api/apidoc",
+            "/api/swagger-ui/**",
+            "/api/swagger-ui",
+            "/api/v3/api-docs/**",
+            "/api/v3/api-docs"
+
     };
 
     @SneakyThrows

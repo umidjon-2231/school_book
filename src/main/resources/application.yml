@@ -3,15 +3,19 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
   datasource:
-    url: jdbc:postgresql://localhost:5432/school_book
-    password: 911368169umid
-    username: postgres
+#    url: jdbc:postgresql://localhost:5432/school_book
+    url: postgres://ivastdlacjjmgr:c62fb8e39d5aba58a808731331cacb5cf1407cb96ac564ba8f9a51ccaeb3ba8e@ec2-63-32-248-14.eu-west-1.compute.amazonaws.com:5432/d52jpfhsrgroq0
+
+    #    password: 911368169umid
+    password: c62fb8e39d5aba58a808731331cacb5cf1407cb96ac564ba8f9a51ccaeb3ba8e
+#    username: postgres
+    username: ivastdlacjjmgr
     driver-class-name: org.postgresql.Driver
   sql:
     init:
-      mode: never
+      mode: always
   mvc:
     servlet:
       path: /api
@@ -23,3 +27,6 @@ jwt:
   expire: 86400000
 server:
   port: 3054
+springdoc:
+  swagger-ui:
+    path: /apidoc

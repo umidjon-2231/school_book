@@ -1,0 +1,22 @@
+GET http://localhost:3054/api/book/search?q=I
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2NTAzODkyNjYsImV4cCI6MTY1MDQ3NTY2Niwic3ViIjoiYWRtaW4ifQ.zJ6kNIFnxBn3QVmFBmjyzHw2Xvy1qSMcAHUaM8ha3dil6xQDeAtlAbrXgmX29T7zjwClhczT6b0AEIwK9izK4Q
+
+###
+POST http://localhost:3054/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "1234"
+}
+
+###
+DELETE http://localhost:3054/api/book/1/favorite
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2NTAzODkyNjYsImV4cCI6MTY1MDQ3NTY2Niwic3ViIjoiYWRtaW4ifQ.zJ6kNIFnxBn3QVmFBmjyzHw2Xvy1qSMcAHUaM8ha3dil6xQDeAtlAbrXgmX29T7zjwClhczT6b0AEIwK9izK4Q
+
+
+{}
+
+###
