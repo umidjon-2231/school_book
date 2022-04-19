@@ -119,7 +119,7 @@ public class BookController {
         if(key!=null){
             key="%"+key+"%";
         }else {
-            key="any";
+            key="%";
         }
         List<Book> books = bookRepository.findAllByNameIsLikeAndGroup_ClassNumberInAndLanguageIn(
                 key, groupIds, languages);
