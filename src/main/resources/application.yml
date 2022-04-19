@@ -1,0 +1,25 @@
+debug: true
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: jdbc:postgresql://localhost:5432/school_book
+    password: 911368169umid
+    username: postgres
+    driver-class-name: org.postgresql.Driver
+  sql:
+    init:
+      mode: never
+  mvc:
+    servlet:
+      path: /api
+  servlet:
+    multipart:
+      max-file-size: 100MB
+jwt:
+  key: 132ea09c203531f15e3d055a4e305eda
+  expire: 86400000
+server:
+  port: 3054
